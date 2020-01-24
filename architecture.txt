@@ -1,0 +1,62 @@
+I/O :
+
+	1- Chargement :
+		si le nom de fichier est spécifié on charge ce dernier,
+		sinon, on crée un fichier temporaire
+
+	2- Sauvegarde :
+		sauvegarde des modifications portées sur un fichier,
+		et sauvegarde des fichiers temporaires si voulu.
+
+
+
+	int chargement(char * nom_ficher,char * buf_fichier)
+		//fonction qui prend le nom d'un fichier et remplie un tableau de caractere, renvoie le nombre de
+		// de charactere lu ou -1 si erreur
+		// renvoie 0 si le fichier est nouveau
+		// ?? s'occupe de la reallocation de buf_fichier(128 Charactere par default) ??
+
+
+
+Requêtes utilisateurs :
+
+	Configuration :
+
+	Lire dans un fichier les paramètres de l'éditeur (raccourcis )
+	définis par l'utilisateur selon une syntaxe imposée.
+
+	Transformer les requetes du clavier en commandes concretes :
+		Selection
+		Copier/Coller
+		Couper
+		Suppression
+		Saisie
+		Déplacement curseur
+
+
+Buffer :
+
+	structure :
+		2 postions de curseurs (1 : position courante _ 2 : curseur de selection)
+		nombre de lignes contenues dans le buffer
+		nombre de lignes maximal que peut contenir le buffer
+		char ** qui contient le texte
+		char * pour le presse papier personalisé.
+
+	Rôle :
+		Creation
+		Modification
+		Suppression
+		Copier/Coller
+		Destruction
+
+Editeur :
+
+	Pour savoir ou est ce qu'il faut afficher et  quelle partie du texte à afficher
+	(exemple: si le texte est trop grand )
+
+Affichage :
+
+	Il agit selon les informations dans l'éditeur
+	taille de la console
+	(retour à la ligne quand il faut , savoir sur quelle ligne on est ...)  .

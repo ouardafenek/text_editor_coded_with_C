@@ -1,0 +1,421 @@
+06/02/2018
+Done :
+	- Git repository created with access rights
+
+To Do :
+	- Charger un fichier : temporaire & existant
+	- Arriver a pouvoir le modifier
+	- Enregistrer les modifications faites.
+
+13/02/2018
+Done:
+	- Début du chargement du fichier (avec ouverture et avec fichier temporaire)
+	- Début de la création du buffer
+Todo:
+	- Avancement du chargement des fichiers
+	- Fin des Buffers
+	- Réflexion sur les bases de l'architecture
+
+28/02/2018
+Done:
+	- Modification du diagramme d'architecture
+	- Répartition des taches
+	- Début des module "Editeur" et "Affichage"
+	- Confinuation du module "Buffer"
+Todo:
+	- Module "Editeur"
+	- Module "Affichage"
+	- Module "Buffer"
+
+
+06/03/2018
+Done:
+	- Avancé dans le Module "Editeur"
+	- Avancé dans le Module "Affichage"
+	- Avancé dans le Module "Buffer"
+
+Todo:
+	- Module "Editeur"
+	- Module "Affichage"
+		La fonction d'affichage simple
+		Recupération des requêtes de l'utilisateur et les transformer en commandes
+		concrêtes,
+			si c'est un copier, alors indiquer le début et la fin du texte à copier
+			un coller : indiquer la position ou coller
+			remplacer : indiquer le debut et la fin du texte à remplacer ensuite
+						et donner le caractère avec quoi remplacer
+			insertion : c'est la lecture caractère par caractère
+			suppression : debut et fin du text à supprimer
+
+	- Module "Buffer"
+
+13/03/2018
+Done :
+	- Requete utiisateurs :
+		* récupération des raccourcis à partir du fichiers de configuration
+		* definition de la structure d'une commande :
+
+				typedef struct command {
+					int type_commande ;
+					char c ;  //caractère à insérer ou avec quoi remplacer la selection
+								// dans les cas ou la commande est la selection,  ou bien MOVE, ce caracère indiquera la direction
+								// ie il vaut :
+								// u : Up , d : Down , r : Right , l : Left
+				}command ;
+
+
+		* transformer les touches clavier en requetes concrêtes :
+			- SELECT : se fera avec shift+arrow (cas shift down et shift up non encore traités)
+			- MOVE : avec arrow
+			- QUIT / DELETE / SAVE / CUT / PASTE / COPY / QUIT : avec les raccourcis définis
+			- INSERT : insertion d'un caractère
+
+
+	-Editeur :
+		* modification de l'architecture ? passer sur deux thread pour gerer l'afficharge et les entrer utilisateur en meme temp ?
+		* mise a jour pour recuperer les entrer utilisateur avec la structure du module Requete utilisateur
+		* deplacement curseur simplifier, ne gere pas les ligne trop longueur
+
+	-Buffer :
+		* Implementation de la fonction d'ajout de texte dans un buffer
+		* Implementation d'une fonction de retour du texte d'un buffer
+		* Correction de multiples erreurs
+		* Vérification avec Valgrind
+		* Modification di fichier de test pour le buffer
+
+Todo :
+	- Robustesse de la lecture du fichier (cas ou un champs est vide par exemple ...)
+	- Gerer les shift up et shift down
+	- Essayer de récuperer les commandes de la souris
+	- Module editeur:
+		* finir la recuperation des entrer utilisateur
+		* refaire une fonction pour initialiser, plus tard gere le deux thread avec cette fonction
+	- Module Buffer:
+		* Corriger quelques acces memoire incorrecte
+		* Gestion de la zone de selection lors de l'ajout de texte
+		* Ajout d'une fonction de suppression d'une ligne
+		* Modifier les retours d'erreur des fonctions du buffer
+
+
+
+
+20/03/2018
+Done:
+	-Editeur:
+		* creation de Editeur.h
+		* correction de bug
+
+	-Affichage:
+		* creation d'une fonction pour initialiser la fenetre
+		* correction de bug
+		* mise a jour de affichage.h
+
+	-Requette:
+		* ajouter des define et de la structure dans dans requette.h
+		* definition d'une nouvelle fonction pour detecter les commandes de la souris (getentry_mouse)
+		* modification de la fonction getentry pour la specifier aux entrées du clavier + renommage à getentry_keyboard
+
+
+	-Buffer:
+		* Correction partiel d'un mauvais accès memoire
+		* Ajout de quelques retour de fonction pour la gestion des erreurs
+		* Fonction pour retirer une ligne
+		* Commencement du la fonction pour retirer des caracteres
+
+
+Todo:
+	-Editeur:
+		* continue l'Editeur.h
+	-Buffer :
+		* Corriger le reste des acces mémoires incorrectes
+		* Gestion de la zone de selection
+		* Terminer la fonction de la suppresssion des caracteres
+	- Requete :
+		* Modification de la structure de la commande pour qu'elle soit la meme lorsqu'il s'agit du clavier et de la souris
+		* Modification des retours de la fonctions qui récupère du clavier
+		* misse à jour du fichier .h
+
+
+27/03/2018
+
+Done:
+	Unification des fichiers
+	realisation de makefile
+	Compilation avec make de l'editeur
+
+	-Editeur:
+		* correction de bug
+
+	-Requete :
+		* Modification de la structure de la commande pour qu'elle soit la meme lorsqu'il s'agit du clavier et de la souris
+		* Modification des retours de la fonctions qui récupère du clavier
+		* misse à jour du fichier .h
+	-Buffer :
+		* Recupere un partie du buffer, revoie un char *
+		* Determine si il y a une zone de selection
+
+Todo:
+	-Buffer :
+		* Implementer la suppression de la zone de selection
+
+	-Editeur:
+		* Correction de bug
+		* Unification entre les modules
+
+	-affichage:
+		* fonction qui revoie la taille de la fenetre
+
+
+03/04/2018
+Done :
+	-Affichage :
+		* renvoyer les dimensions de la fenêtre
+		* implementer une fonction qui affiche un char *
+	-Buffer :
+		* Ajout de quelques fonctions pour la suppression de la zone de selection
+		*première implementation de la fonction de suppression de la zone de selection
+To Do :
+	-Chargement :
+		* Charger un fichier dans un char*
+		* Sauvegrade du buffer dans un fichier
+	-Buffer :
+		* Correction de la fonction de la suppression de la zone de selection
+
+10/04/2018
+
+Done :
+ 	—Editeur:
+		* correction de bug
+		* Integration des modules
+	-Buffer:
+		* Correction d'un probleme d'acces mémoire
+		* Correction pour la suppression de caracteres
+	-Requetes:
+		* Recuperer les entrées du clavier et de la souris simultanément
+	-Affichage:
+		* les fonctions quitter et déplacer
+
+Todo :
+	-Editeur:
+		* Continuer le traitement_char, et faire des fonctions auxilliaires
+	-Buffer:
+		* Corriger les autres erreurs d'acces mémoire
+		* Corriger la suppression d'une zone de selection
+	-Chargement:
+		* travailler sur la sauvegarde
+
+24/04/2018
+Done:
+	-Buffer:
+		* Correction de quelques erreurs lors de la suppression d'une zone de selection
+		* Correction de la gestion des curseurs lors de la suppression des caracteres
+	-Diagramme:
+		* Creation d'un fichier .dot pour le diagramme d'architecture
+	-makefile:
+		* Ajout de graph pour generer le graphe
+	-gitignore
+		* Ajout des fichier .png
+		* Ajout de qulques commentaires
+	-Affichage:
+		* Correction du bug qui afficher sur une nouvelle ligne a chaque fois
+	-Editeur:
+		* Ajout d'une nouvelle fonctions pour traiter les char separement des autres
+		  demandes utilisateur
+
+
+26/04/2018
+Done:
+	-Editeur:
+		* Correction de bug pour les deplacement du curseur avec les fleche directionnelle
+		* Delegation de plus de tache a traitement_char
+	-Buffer:
+		* suppression de certaine fonctions
+		* correction de bug
+	-Affichage:
+		* changement de la signature dans affiche, pour mieux coller avec deplacement
+	-Chargement:
+		* Lors du chargement d'un fichier celui-ci est maintenant charge en entier
+		* Creation de la fonction sauvegarde
+	-Color:
+		* Creation de ce module pour tester la selection et les couleurs
+
+To do:
+	-Editeur:
+		* alléger le travail entre boucle_utilisateur et traitement_entrer, ie cree des
+		  fonction dedier pour chaque cas
+	-Chargement:
+		* Modifier la fonction sauvegarde pour qu'elle prenne en argument le nom du fichiers
+		  ou sauvegarder
+
+
+
+27/04/2018
+Done:
+	-Editeur:
+		* Creation de sauvegarde_editeur et ajout de fonctionnalite sur deplacement_curseur
+		  traitement_char pour reduire le travail de boucle_utilisateur
+		* Commentaires sur quelques fonctions
+		* La gestion du curseur ne se fait plus dans Editeur mais directement dans buffer
+		  creation de la fonction annexe deplacement_curseur_dans_buffer qui donne unique
+		  la direction de la fleche au buffer
+
+	-Buffer:
+		* Creation de moveCursorBuffer, qui gere a present le bon deplacement du curseur
+		  prend une partie de deplacement_curseur de l'Editeur
+		* Les set des curseurs mis en static
+		* Correction de bug
+
+	-Chargement:
+		* Modification de la fonction sauvegarde pour quelle prenne un nom de fichier en argument
+		  pour savoir ou sauvegarde le buffer
+		* Gestion des erreurs pour sauvegarde fini et commence pour chargement
+
+	-Makefile:
+		* Cree et supprime le dossier bin
+
+Todo:
+	-Chargement:
+		* Finir la gestion des erreurs avec les fichiers
+		* Voir si il n'y a pas de meuilleur methode pour recuperer la taille total d'un fichier ?
+	-Affichage:
+		* Voir pour faire une fonction qui ajouterai un seul caracteres sans avoir a tous réafficher
+		  cf addch()
+	-Requette:
+		* Voir si il est possible de recuperer les redimentionnement de la console avec ncurses,
+		  ie plus besoin de faire du multi-thread !
+		   410 est le code de la touche générée lorsqu'on redimensionne le terminal avec getch()
+
+28/04/2018
+Done:
+	-Editeur:
+		* Creation d'un fonction dedier pour le redimentionnement
+		* Creation de affiche_buffer pour factoriser le code, la fonction se contente
+		  d'afficher le buffer dans la fenetre
+		* Creation de aDejaSauvegarder pour factoriser du code, demander a l'utilisateur
+		  un nom ou sauvegarder son fichier si il n'y en a pas, utiliser quand premier ctrl+s
+		  mais auss quand on quitte le programme sans avoir sauvegarder
+		* Correction de bug, le fichier s'affiche lorsqu'il est charge
+	-Requette:
+		* Cas du redimentionnement directement gere dans getentry avec wgetch qui revoie dans ce cas 410
+	- Buffer:
+		* Ajout d'une fonction pour le deplacement du curseur de selection
+		* Correction de quelques erreurs dans le deplacement de curseurs
+		* Correction de l'effacement de caracteres
+		* Suppression des erreurs de memoires
+
+Todo:
+	-Buffer:
+		* La fonction de déplacement des curseurs de deplace que d'une case, a corriger
+
+
+15/05/2018
+Done:
+	-Ajout d'un module test_scrolling pour teste le scrolling a partir d'un fichier chargé a le module chargement.h
+		et d'un buffer cree avec le module buffer.h, foncionne correctement
+
+	-Editeur:
+		* Creation d'une fonction qui n'envoie plus plus tous le texte du buffer, mais seulement la partie
+			a afficher, corrige un bug (lorsqu'un fichiers etait chargé et que ca taille etait superieur a la console
+			Impossible de faire quoi que ca soit)
+		* L'implementation pour le scrolling ne foncitonne pas encore, toujours bugger
+		* Coloration de la zone de selection
+		* Copier/Coller
+
+	-Affichage:
+		* creation d'une fonction qui affiche seulement une ligne passer en paramètres
+		* creation de variable pour avoir le numero de la premier ligne a afficher
+		* creation de deux variable pour avoir la position actuelle du curseur, dans le buffer (risque d'etre modifier/supprimer)
+		* modification dans deplacer qui sert toujours a deplacer le curseur selon x et y
+			mais la fonction verifie maintenant si il faut scroll up ou down, ne foncionne pas encore
+		* creation d'une focntion clear_window, pour effacer la fenetre courant
+		* ajout de la position du curseur dans la console, a la derniere ligne
+	-Buffer:
+		* Ajout de la fonction getSelectionBuffer pour la récupération du contenue de la zone de selection
+		* Ajout des fonctions copyBuffer et pasteBuffer pour le copier/coller
+		* Création et implementation du module Position
+		* Ajout de la fonction findStringBuffer pour la recherche dans le buffer
+		* Ajout de la fonction moveCursorPosition pour un déplacement du curseur avec une position
+		* Correction de bugs
+
+16/05/2018
+Done:
+	-Editeur:
+		* Correction de bug
+		* lorsque l'on affiche le buffer, on affiche une deuxieme fois la/les lignes selectionner(
+			solution naive et peu optimal)
+
+	-Affichage
+		* Affiche correctement la position du curseur dans la console
+		* Corrections de bug, notament par rapport au scrolling et a la position du curseur
+		* ajout d'une methode pour changer la position directement sans verification !!! (est seulement a utiliser
+			pour remettre le curseur au debut du fichier ou affiche a la derniere ligne), pour les autre modifications
+			on utilise deplacer()
+		* re-implementation pour les couleurs de la selection
+	- Redo Undo
+		* Implementation de la fonction correspondante, ce qui a engendré :
+			L'implémentation de nouvelles fonctions pour lectures et positionnements dans les fichiers
+			vu que les modifications sont enregistrées dans un fichier.txt
+
+			Extension du module requetes pour récupération de nouveaux raccourcis
+	 Requette:
+	 	* ajout de find dans les raccourcis et les actions possibles
+
+	- Buffer:
+		* Ajout de la fonction formatColumnWidth (auto-fill)
+		* Corrections de bugs
+
+17/05/2018
+Done:
+	-Editeur:
+		* Correction bug position du curseur lorsqu'il y a une zone selectionner, il ne reviens plus en bas
+		* Correction bug lorsque l'on se deplace et qu'il y avait une zone selectionner, elle disparait bien a present
+		* Correction bug lorsque l'on sauvegarde, appele la bonne fonction d'affichage
+		* Correction bug lorsque l'on charge avec ctrl+o, le curseur est bien remis a 0,0
+
+		* Implementation complete et correction de bugs pour la fonctionnalité find, on peu désormais recherché une zone de text
+		  	selection ou recherché directement les char que l'on veux, les find sont persistant avec cette implementation
+			ca allége un peu le code si on refait un FIND alors que on a deja un FIND en cours pas de probleme, le fait de
+			QUIT le FIND reviens a faire en undo et reaffiche l'ancienne recherche
+
+		* Implementation simpliste d'une sauvegarde automatique, qui increment une variable, nb_de_modification_sans_sauvagarde
+		 	si on effectue des actions, COPY, INSERT ..
+			et qui au bout d'un certain nombre Enregistre le fichier seul
+
+		* Modification de l'affichage quand on demande a sauvé ou a chargé un fichier
+
+		* Traitement du cas de remplacement pour le redo Undo
+		* Changement du séparateur pour régler le problème du caractère blanc
+	- buffer:
+		* Ajout de la fonctionnalite auto_fill (version instable)
+		*	Modification de la structure buffer pour accueillir les parametre d'auto_fill
+		* Ajout de fonctions pour la gestion de l'auto_fill
+		* Correction de bugs
+	-makefile:
+		* Creation d'un script qui teste si le dossier bin/ existe et le cree dans le cas contraire
+			dans le but de reglé le bug sur mac de mkdir -p qui ne fonctionne pas, pour la portabilité donc
+		* modification de makefile pour prendre en compte le fichier bash
+		* Ajout de regles pour la compilation de test
+	-test
+		* Ajout des premiers tests pour le buffer
+
+18/05/2018:
+Done:
+	-Editeur:
+		* Modification des raccourcis à partir d'une session
+		* Correction d'erreur lors de l'execution sur mac, avec segment fault
+		* Correction de nombre bug pour la portabilité avec mac
+		* Demande desormais a l'utilisateur si il veux sauvegarder avant de quitter, si on entre un char differents de
+			o ou n, alors on ne quitte plus
+		* Récupération des requetes pour changer les raccourcis à partir d'un menu ( qui sont d'ailleurs directement
+			pris en compte dans l'editeur)
+
+	- Affichage:
+		* Implémentation du menu
+*		* Ajout de fonctionalités au menu 
+	- Buffer:
+		* Ajout de la suite des tests pour le buffer
+		* Ajout de commentaires
+		* Retrait des printf
+		* Formatage du fichier
+	- Makefile
+		* Amélioration du makefile

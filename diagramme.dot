@@ -1,0 +1,140 @@
+/**
+ * Fichier pour la génération du diagramme d'architecture
+ */
+digraph diagramme{
+	affichage[shape=none, margin=0, label=<
+		<TABLE>
+			<tr>
+				<td> AFFICHAGE </td>
+			</tr>
+			<tr>
+				<td> Utilisé pour la gestion de l'affichage </td>
+			</tr>
+			<tr>
+				<td>
+					Initialise l'affichage<br/>
+                    Affiche les informations a l'écran<br/>
+                    Affiche le menu de selection<br/>
+                    Interface pour la communication avec l'affiche de ncurses<br/>
+				</td>
+			</tr>
+		</TABLE>
+		>];
+	buffer[shape=none, margin=0, label=<
+		<TABLE>
+			<tr>
+				<td> BUFFER </td>
+			</tr>
+			<tr>
+				<td> Utilisé pour la gestion du buffer </td>
+			</tr>
+			<tr>
+				<td>
+					Gestion de l'ajout et de la suppression du texte<br/>
+					Gestion du retour de texte<br/>
+					Gestion des curseurs<br/>
+					Gestion de la zone de selection<br/>
+					Gestion du presse papier interne<br/>
+				</td>
+			</tr>
+		</TABLE>
+		>];
+	editeur[shape=none, margin=0, label=<
+		<TABLE>
+			<tr>
+				<td> EDITEUR </td>
+			</tr>
+			<tr>
+				<td>Programme principale</td>
+			</tr>
+			<tr>
+				<td>
+					Liaison entre les differents modules<br/>
+                    Recupere les demande de l'utilisateur avec REQUETES<br/>
+                    Modifie le BUFFER en consequence<br/>
+                    Et Affiche les informations a l'utilisateur<br/>
+                    Gestion de la fonction FIND<br/>
+                    Gestion de la fonction de la modification des raccourcis<br/>
+				</td>
+			</tr>
+		</TABLE>
+		>];
+	requete[shape=none, margin=0, label=<
+		<TABLE>
+			<tr>
+				<td> REQUETES UTILSATEUR </td>
+			</tr>
+			<tr>
+				<td> Utilisé pour la gestion des requetes de l'utilisateur</td>
+			</tr>
+			<tr>
+				<td>
+					Récupération des saisies de L'utilisateur<br/>
+                    Et traite rapidement cet information pour EDITEUR<br/>
+				</td>
+			</tr>
+		</TABLE>
+		>];
+	sauvegarde[shape=none, margin=0, label=<
+		<TABLE>
+			<tr>
+				<td>SAUGEVARDE</td>
+			</tr>
+			<tr>
+				<td> Utilisé pour la gestion des sauvegardes</td>
+			</tr>
+			<tr>
+				<td>
+					Gestion de l'enregistrement de fichiers<br/>
+					Gestion du chargement de fichiers<br/>
+				</td>
+			</tr>
+		</TABLE>
+		>];
+	position[shape=none, margin=0, label=<
+		<TABLE>
+			<tr><td>POSITION</td></tr>
+			<tr><td> Utilisé pour la gestions de postions</td></tr>
+			<tr>
+				<td>
+					Ajout et récupération de positions
+				</td>
+			</tr>
+		</TABLE>
+	>];
+	parse[shape=none, margin=0, label=<
+		<TABLE>
+			<tr><td>PARSER</td></tr>
+			<tr><td> Utilisé pour la gestion de undo/redo</td></tr>
+			<tr>
+				<td>
+					Récupération des informations dans le format d'undo/redo
+				</td>
+			</tr>
+		</TABLE>
+	>];
+	undo[shape=none, margin=0, label=<
+		<TABLE>
+			<tr><td>UNDOREDO</td></tr>
+			<tr><td>Utilisé pour la gestion des undo/redo</td></tr>
+			<tr>
+				<td>
+					Gestion de undo<br/>
+					Gestion de redo<br/>
+					Gestion du fichier des undo/redo
+				</td>
+			</tr>
+		</TABLE>
+	>];
+
+	editeur -> affichage;
+	editeur -> buffer;
+	editeur -> position
+	editeur -> requete;
+	editeur -> sauvegarde;
+	editeur -> undo;
+	undo -> parse;
+	undo -> buffer;
+	buffer -> position;
+
+}
